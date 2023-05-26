@@ -25,7 +25,7 @@ endfunction
 " ║ Main functions                                                       ║
 " ╚══════════════════════════════════════════════════════════════════════╝
 
-function! s:insert_boxed_comment() abort
+function! s:append_boxed_comment() abort
   let box_params = boxes#draw#box()
   let lines = box_params['lines']
   let post_col = box_params['col']
@@ -51,4 +51,4 @@ function! s:insert_boxed_comment() abort
   startreplace
 endfunction
 
-command! -nargs=0 BoxedCommentsAppend call s:insert_boxed_comment()
+command! -nargs=0 BoxedCommentsAppend call s:append_boxed_comment()
