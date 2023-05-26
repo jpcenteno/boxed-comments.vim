@@ -26,17 +26,12 @@ endfunction
 " ╚══════════════════════════════════════════════════════════════════════╝
 
 function! s:append_boxed_comment() abort
-  let box_params = boxes#draw#box()
+  let blank_line_before = ! s:is_line_blank(line('.'))
+  let blank_line_after = ! s:is_line_blank(line('.') + 1)
+
+  let box_params = boxes#draw#box(blank_line_before, blank_line_after)
   let lines = box_params['lines']
   let post_col = box_params['col']
-
-  if ! s:is_line_blank(line('.'))
-    let lines = [''] + lines
-  endif
-
-  if !s:is_line_blank(line('.') + 1)
-    let lines = lines + ['']
-  endif
 
   let i = 0
   for line in lines

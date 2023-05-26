@@ -29,15 +29,23 @@ function! s:format_box_line(cl, l, m, r, cr) abort
   return a:cl . a:l . repeat(a:m, len) . a:r . a:cr
 endfunction
 
-function! boxes#draw#box() abort
+function! boxes#draw#box(blank_line_before, blank_line_after) abort
   let [comment_l, comment_r] = s:comment_surroundings()
   let [nw, n, ne, e, se, s, sw, w] = boxes#symbols#get()
+
+  let lines = []
+
+  if a:blank_line_before
+    let lines += ['']
+  endif
   
-  let lines = [
-  \ s:format_box_line(comment_l, nw, n, ne, comment_r),
-  \ s:format_box_line(comment_l, w, ' ', e, comment_r),
-  \ s:format_box_line(comment_l, sw, s, se, comment_r),
-  \ ]
+  let lines += [s:format_box_line(comment_l, nw, n, ne, comment_r)]
+  let lines += [s:format_box_line(comment_l, w, ' ', e, comment_r)]
+  let lines += [s:format_box_line(comment_l, sw, s, se, comment_r)]
+
+  if a:blank_line_after
+    let lines += ['']
+  endif
 
   let col = len(comment_l) + len(w) + 2
 
