@@ -1,3 +1,6 @@
+" Maintainer:   Joaquín Centeno <https://github.com/jpcenteno>
+" Version:      0.1
+
 if exists("g:loaded_boxed_comments")
   finish
 endif
