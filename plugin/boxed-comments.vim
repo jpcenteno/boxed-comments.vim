@@ -1,7 +1,7 @@
-if exists("g:loaded_header_comment")
+if exists("g:loaded_boxed_comments")
   finish
 endif
-let g:loaded_header_comment = 1
+let g:loaded_boxed_comments = 1
 
 " ╔══════════════════════════════════════════════════════════════════════╗
 " ║ Default config                                                       ║
