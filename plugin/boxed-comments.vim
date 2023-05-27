@@ -33,11 +33,7 @@ function! s:append_boxed_comment() abort
   let lines = box_params['lines']
   let post_col = box_params['col']
 
-  let i = 0
-  for line in lines
-    call append(line('.') + i, line)
-    let i += 1
-  endfor
+  boxes#draw#append_lines(lines, line('.'))
 
   let [og_bufnum, og_lnum, _, og_off] = getpos('.')
   let post_lnum = og_lnum + len(lines) / 2 + 1

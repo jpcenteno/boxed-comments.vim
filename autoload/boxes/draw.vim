@@ -51,3 +51,11 @@ function! boxes#draw#box(blank_line_before, blank_line_after) abort
 
   return {'lines': lines, 'col': col}
 endfunction
+
+function! boxes#draw#append_lines(lines, cursor_line) abort
+  let i = 0
+  for line in a:lines
+    call append(a:cursor_line + i, line)
+    let i += 1
+  endfor
+endfunction
