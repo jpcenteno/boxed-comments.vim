@@ -21,6 +21,13 @@ function! s:is_line_blank(lnum) abort
   return empty(line_contents) || line_contents =~# '^\s*$'
 endfunction
 
+function! s:setpos(num_box_lines, column) abort
+  let [og_bufnum, og_lnum, _, og_off] = getpos('.')
+  let post_lnum = og_lnum + a:num_box_lines / 2 + 1
+
+  call setpos('.', [og_bufnum, post_lnum, a:column, og_off])
+endfunction
+
 " ╔══════════════════════════════════════════════════════════════════════╗
 " ║ Main functions                                                       ║
 " ╚══════════════════════════════════════════════════════════════════════╝
@@ -33,12 +40,9 @@ function! s:append_boxed_comment() abort
   let lines = box_params['lines']
   let post_col = box_params['col']
 
-  boxes#draw#append_lines(lines, line('.'))
+  call boxes#draw#append_lines(lines, line('.'))
 
-  let [og_bufnum, og_lnum, _, og_off] = getpos('.')
-  let post_lnum = og_lnum + len(lines) / 2 + 1
-
-  call setpos('.', [og_bufnum, post_lnum, post_col, og_off])
+  call s:setpos(len(lines), post_col)
   startreplace
 endfunction
 
